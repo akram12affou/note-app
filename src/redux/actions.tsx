@@ -10,4 +10,10 @@ export  function addNoteAction(notetext) {
      payload: id
  }
    };
+ export  function fetchNotes(notes) {
+    return{
+     type: 'fetch',
+     payload: notes
+ }
+   };
 

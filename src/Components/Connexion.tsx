@@ -1,13 +1,15 @@
 import React, { Fragment, useState } from "react";
-import {createUserWithEmailAndPassword, onAuthStateChanged} from 'firebase/auth' 
+import {createUserWithEmailAndPassword, onAuthStateChanged, updateProfile} from 'firebase/auth' 
 import {  signInWithEmailAndPassword,signOut } from 'firebase/auth' 
-import { db, auth } from "../firebase";
+import {  auth } from "../firebase";
 import {useNavigate} from 'react-router-dom'
 function Connexion() {
+  const navigate= useNavigate()
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [signIn, setSignIn] = useState(true);
+
   const handleAuth = async (e) => {
     e.preventDefault();
     
@@ -18,6 +20,8 @@ function Connexion() {
         setEmail('')
         setPassword('')
         setName('')
+        navigate('Note-App')
+    
       }catch(err){
           console.log(err)
       }

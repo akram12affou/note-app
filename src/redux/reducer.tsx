@@ -4,6 +4,9 @@ const initialState = {
 }
 export default (state = initialState, { type, payload }) => {
   switch (type) {
+    case 'fetch' :
+      console.log(payload,'j')
+    return  { ...state, notes :payload }
   case 'addNote': 
     return { ...state, notes :[...state.notes,{
         notename :payload,
