@@ -7,9 +7,8 @@ function App() {
   return (
     <div>
       <div>
-         
         <Routes>
-          <Route path='/' element={ <NotesApp/>}></Route>
+          <Route path='/note-App' element={ <NotesApp/>}></Route>
           <Route path='/' element={<Connexion  />}></Route>
         </Routes>
 
