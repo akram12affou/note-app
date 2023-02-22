@@ -1,18 +1,18 @@
 import React, { Fragment } from 'react'
-import { useDispatch } from 'react-redux'
-import {deleteNoteAction} from '../redux/actions'
 import {auth } from '../firebase'
-function Note({note }) {
-   
-    const dispatch = useDispatch()
-    const handleDelete =(id) => {
-        dispatch(deleteNoteAction(id))
+import db from '../firebase'
+import { collection, deleteDoc, doc, query, where } from 'firebase/firestore'
+function Note({note}) {
+
+    const handleDelete =async (note) => {
+         console.log(note)
+         await deleteDoc(doc(db,'notes',note.id))
     }
   
   return (
     <Fragment key={note.id}>
         {note.notename} 
-        <button onClick={() => handleDelete(note.id)}>X</button>
+        <button onClick={() => handleDelete(note)}>X</button>
         <button>Edit</button>
     </Fragment>
   )
