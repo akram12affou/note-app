@@ -3,19 +3,28 @@ import Note from "./Note";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
 import db from "../firebase";
-import { addDoc, collection, getDocs, onSnapshot, query, where } from "firebase/firestore";
-function NotesApp() {
-  const [user, setUser] = useState("");
+import {
+  addDoc,
+  collection,
+  getDocs,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
+import '../styles/style.css'
+function NotesApp({usere}) {
+    console.log(auth.currentUser.email)
   const [textNote, setTextNote] = useState("");
-  const [notes , setNotes] = useState([])
+  const [notes, setNotes] = useState([]);
   const notecollection = collection(db, "notes");
-  
+  const [user,setUser] = useState([])
   useEffect(() => {
     onAuthStateChanged(auth, (CurrentUser) => {
       setUser(CurrentUser);
     });
-    console.log(user?.email)
-    const q = query(collection(db, 'notes'),where('user','==',user.?email));
+  },[])
+  useEffect(() => {
+    const q =  query(collection(db, "notes"), where("user", "==",usere));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       let notearr = [];
       querySnapshot.forEach((doc) => {
@@ -25,18 +34,21 @@ function NotesApp() {
     });
     return () => unsubscribe();
   }, []);
-
   const handleAdd = async () => {
+    if (textNote == "") {
+      alert("invalid note");
+      return;
+    }
+    let text = textNote;
+    setTextNote("");
     await addDoc(notecollection, {
-      notename: textNote,
+      notename: text,
       done: false,
       user: auth.currentUser?.email,
     });
-    setTextNote("");
   };
-
   return (
-    <Fragment>
+    <Fragment >
       {JSON.stringify(user.email)}
       <h1>Note App</h1>
       <label>Note :</label>
@@ -47,7 +59,7 @@ function NotesApp() {
       />
       <button onClick={handleAdd}>+</button>
       {notes.map((note) => {
-        return <Note note={note} handleAdd={handleAdd} />;
+        return <Note note={note} />;
       })}
     </Fragment>
   );

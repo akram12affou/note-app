@@ -1,10 +1,14 @@
-import React, { Fragment, useState } from "react";
-import {createUserWithEmailAndPassword, onAuthStateChanged, updateProfile} from 'firebase/auth' 
-import {  signInWithEmailAndPassword,signOut } from 'firebase/auth' 
-import {  auth } from "../firebase";
-import {useNavigate} from 'react-router-dom'
-function Connexion() {
-  const navigate= useNavigate()
+import React, { Fragment, useEffect, useState } from "react";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  updateProfile,
+} from "firebase/auth";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { auth } from "../firebase";
+import { useNavigate } from "react-router-dom";
+function Connexion({ usere, setUsere }) {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -12,64 +16,77 @@ function Connexion() {
 
   const handleAuth = async (e) => {
     e.preventDefault();
-    
-    if(signIn){
-      try{
-        console.log(email)
-        await createUserWithEmailAndPassword(auth,email,password);
-        setEmail('')
-        setPassword('')
-        setName('')
-        navigate('Note-App')
-    
-      }catch(err){
-          console.log(err)
+    if (signIn) {
+      try {
+        console.log(email);
+        await createUserWithEmailAndPassword(auth, email, password);
+        setEmail("");
+        setPassword("");
+        setName("");
+        navigate("Note-App");
+        
+        await updateProfile(user).catch((err) => console.log(err));
+      } catch (err) {
+        console.log(err);
       }
-    }else{
-      try{
-        await signInWithEmailAndPassword(auth,email,password);
-        setEmail('')
-        setPassword('')
-      }catch(err){
-          console.log(err.message)
+    } else {
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        setEmail("");
+        setPassword("");
+        await updateProfile(user, { displayName: "name" }).catch((err) =>
+          console.log(err)
+        );
+      } catch (err) {
+        console.log(err.message);
       }
     }
-
+    setUsere(email)
   };
   const handleLogIn = (e) => {
     e.preventDefault();
     setSignIn(!signIn);
   };
-  console.log(email,name,password)
+  console.log(email, name, password);
   return (
     <form>
       {signIn ? <h1>Register</h1> : <h1>Login</h1>}
       {!signIn && (
         <>
-          <label >
-            email :
-          </label>
-          <input type="text" value={email} onChange={(e) => setEmail(e.target.value)}/>
-          <label >
-            password :
-          </label>
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+          <label>email :</label>
+          <input
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <label>password :</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </>
       )}
       {signIn && (
         <>
-          <label >
-            name :
-          </label>
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)}/>
-          <label>
-            email :
-          </label>
-          <input type="text"  value={email} onChange={(e) => setEmail(e.target.value)}/>
-          <label >
-            password :
-          </label>
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+          <label>name :</label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <label>email :</label>
+          <input
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <label>password :</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </>
       )}
       <button onClick={handleAuth}>{signIn ? "Sign In" : "Login"}</button>
