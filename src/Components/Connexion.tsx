@@ -53,13 +53,13 @@ function Connexion({ user, setUser }) {
       {signIn ? <h1>Register</h1> : <h1>Login</h1>}
       {!signIn && (
         <>
-          <label>email :</label>
+          email :
           <input
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <label>password :</label>
+          password :
           <input
             type="password"
             value={password}
@@ -69,19 +69,19 @@ function Connexion({ user, setUser }) {
       )}
       {signIn && (
         <>
-          <label>name :</label>
+          name :
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <label>email :</label>
+          email :
           <input
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <label>password :</label>
+          password :
           <input
             type="password"
             value={password}
@@ -93,7 +93,7 @@ function Connexion({ user, setUser }) {
       <span>
         {" "}
         {signIn ? "Have An Account? " : "No Account? "}
-        <span onClick={handleLogIn}>{signIn ? " Login" : " Register"}</span>
+        <span class='link' onClick={handleLogIn}>{signIn ? " Login" : " Register"}</span>
       </span>
     </form>
   );

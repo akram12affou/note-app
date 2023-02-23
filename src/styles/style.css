@@ -14,7 +14,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+   
     padding-top: 2rem;
+}
+
+.input{
+    display: flex;
+    align-items: center;
+
 }
 .note-app-notes{
   display: flex;
@@ -42,7 +49,10 @@
     border:none;
     color: #ffffff;
     margin: 3px;
+    display: flex;
+    align-items: center;
     padding: 5px;
+    
     border-radius: 2px;
     transition: all 0.2s ease;
 }
@@ -54,4 +64,49 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+.note textarea{
+    background: #4f4f4f;
+    border: none;
+    color: white;
+    font-size: inherit;
+    max-width: 150px;
+    max-height: 200px;
+    overflow: hidden;
+}
+.note-app-header button{
+    padding:1px;
+    margin: 5px;
+    cursor:pointer;
+    background: #4f4f4f;
+    border: none;
+    border-radius: 5px;
+}
+form{
+    background: #333333;
+    width: 100vw;  
+    height: 100vh; 
+    color:white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+form .link{
+    
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+form button{
+    background: #4f4f4f;
+    color: rgb(255, 255, 255);
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+   transition: all .2s ease;
+}
+form button:hover{
+    background: #363636;
+
 }
