@@ -7,7 +7,7 @@ import {
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
-function Connexion({ usere, setUsere }) {
+function Connexion({ user, setUser }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -41,7 +41,7 @@ function Connexion({ usere, setUsere }) {
         console.log(err.message);
       }
     }
-    setUsere(email)
+    setUser(email)
   };
   const handleLogIn = (e) => {
     e.preventDefault();

@@ -3,6 +3,7 @@ import Note from "./Note";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
 import db from "../firebase";
+
 import {
   addDoc,
   collection,
@@ -11,20 +12,19 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import '../styles/style.css'
-function NotesApp({usere}) {
-    console.log(auth.currentUser.email)
+import "../styles/style.css";
+function NotesApp() {
   const [textNote, setTextNote] = useState("");
   const [notes, setNotes] = useState([]);
   const notecollection = collection(db, "notes");
-  const [user,setUser] = useState([])
+  const [user, setUser] = useState([]);
+  const notes_db = collection(db, "notes");
+
   useEffect(() => {
     onAuthStateChanged(auth, (CurrentUser) => {
       setUser(CurrentUser);
     });
-  },[])
-  useEffect(() => {
-    const q =  query(collection(db, "notes"), where("user", "==",usere));
+    const q = query(notes_db, where("user", "==", user.email || ""));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       let notearr = [];
       querySnapshot.forEach((doc) => {
@@ -33,7 +33,8 @@ function NotesApp({usere}) {
       setNotes(notearr);
     });
     return () => unsubscribe();
-  }, []);
+  }, [user]);
+ 
   const handleAdd = async () => {
     if (textNote == "") {
       alert("invalid note");
@@ -48,20 +49,27 @@ function NotesApp({usere}) {
     });
   };
   return (
-    <Fragment >
-      {JSON.stringify(user.email)}
-      <h1>Note App</h1>
-      <label>Note :</label>
-      <input
-        value={textNote}
-        onChange={(e) => setTextNote(e.target.value)}
-        type="text"
-      />
-      <button onClick={handleAdd}>+</button>
+    <div class="note-app">
+      <div class="note-app-header">
+        <span>{user?.email}</span>
+        <h1>Welcome to Note App</h1>
+        <div>
+          {" "}
+          <label>Wrie your note :</label>
+          <input
+            value={textNote}
+            onChange={(e) => setTextNote(e.target.value)}
+            type="text"
+          />
+          <button onClick={handleAdd}>+</button>
+        </div>
+      </div>
+      <div class='note-app-notes'>
       {notes.map((note) => {
         return <Note note={note} />;
       })}
-    </Fragment>
+      </div>
+    </div>
   );
 }
 

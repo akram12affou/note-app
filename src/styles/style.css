@@ -1,4 +1,57 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300&display=swap');
 *{
     font-family: 'Poppins', sans-serif;
+    padding:0;
+    margin:0;
+}
+.note-app{
+    color: rgb(255, 255, 255);
+    background: #252525;
+    width: 100vw;
+    min-height: 100vh;
+}
+.note-app-header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2rem;
+}
+.note-app-notes{
+  display: flex;
+  padding-top: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+
+}
+.note{
+    display: flex;
+    flex-direction: column;
+    border: #ffffff 1px solid;
+    width: 10rem;
+    background: #333333;
+    height: 10rem;
+    align-items: center;
+    gap: 1rem;
+    border-radius: 3px;
+    justify-content: space-around;
+    
+}
+.note button{
+    background: #747474;
+    border:none;
+    color: #ffffff;
+    margin: 3px;
+    padding: 5px;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+}
+.note button:hover{
+    cursor: pointer;
+    background: #252525;
+}
+.buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
