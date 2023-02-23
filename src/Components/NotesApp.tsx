@@ -3,7 +3,7 @@ import Note from "./Note";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
 import db from "../firebase";
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import {
   addDoc,
   collection,
@@ -34,7 +34,7 @@ function NotesApp() {
     });
     return () => unsubscribe();
   }, [user]);
- 
+
   const handleAdd = async () => {
     if (textNote == "") {
       alert("invalid note");
@@ -53,20 +53,22 @@ function NotesApp() {
       <div class="note-app-header">
         <span>{user?.email}</span>
         <h1>Welcome to Note App</h1>
-        <div class='input'>
+        <div class="input">
           <label>Write your note :</label>
           <input
             value={textNote}
             onChange={(e) => setTextNote(e.target.value)}
             type="text"
           />
-          <button onClick={handleAdd}><AddCircleOutlineIcon/></button>
+          <button onClick={handleAdd}>
+            <AddCircleOutlineIcon />
+          </button>
         </div>
       </div>
-      <div class='note-app-notes'>
-      {notes.map((note) => {
-        return <Note note={note} />;
-      })}
+      <div class="note-app-notes">
+        {notes.map((note) => {
+          return <Note note={note} />;
+        })}
       </div>
     </div>
   );
