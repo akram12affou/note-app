@@ -13,7 +13,7 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-function Note({ note }) {
+function Note({ note,setModalOpen }) {
   const [editedName, setEditedName] = useState("");
   const [inputsShow, setInputsShow] = useState(true);
   const handleEdit = async (id, notename) => {
@@ -23,7 +23,8 @@ function Note({ note }) {
       return;
     }
     if (editedName == "") {
-      alert("invalid todo");
+      setModalOpen(true)
+      console.log('h')
       return;
     }
     await updateDoc(doc(db, "notes", id), { notename: editedName });
@@ -39,12 +40,10 @@ function Note({ note }) {
  }
   return (
     <div class="note" key={note.id}>
-      <div>
-        {/* {JSON.stringify(note)} */}
+      <div class='note-text'>
         {inputsShow ? (
           <>{note.done ? <CheckBoxIcon  onClick={() => handleDone(note.id,note.done)}/> : <CheckBoxOutlineBlankIcon  onClick={() => handleDone(note.id,note.done)}/>} <span style={{
             textDecoration: note.done && 'line-through',
-            
           }}>{note.notename}</span> </>
         ) : (
           <textarea

@@ -6,10 +6,14 @@
 }
 body{
     overflow-x: hidden;
+    transition: all .2s ease;
+    
 }
 .note-app{
-    color: rgb(255, 255, 255);
-    background: #252525;
+    /* color: rgb(255, 255, 255); */
+    color:#060606;
+    /* background: #252525;  */
+     background: #dfdfdf;
     width: 100vw;
     min-height: 100vh;
 }
@@ -17,17 +21,17 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-   
+    
     padding-top: 2rem;
+}
+.note-app-header h1 {
+    font-weight:900;
 }
 .setting-icon{
     z-index: 1;
     transition: all 0.3s ease;
  
 }
-/* .setting-icon:hover{
-       transform: rotate(50deg);
-} */
 .input{
     display: flex;
     align-items: center;
@@ -35,8 +39,9 @@ body{
 }
 .menu{
     position: absolute;
-    top:-25vh;
-    background:#333333;
+    top:-30vh;
+    background:#afafaf;
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
     min-width: 20vw;
     height:25vh;
     left:0;
@@ -62,10 +67,13 @@ body{
 }
 .note{
     display: flex;
+    color:white;
+    /* ff */
     flex-direction: column;
-    border: #ffffff 1px solid;
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+    border: inherit 1px solid;
     width: 10rem;
-    background: #333333;
+    background: #5a5a5a;
     height: 10rem;
     align-items: center;
     gap: 1rem;
@@ -76,6 +84,7 @@ body{
 .note button{
     background: #747474;
     border:none;
+   
     color: #ffffff;
     margin: 3px;
     display: flex;
@@ -161,5 +170,14 @@ form div{
     left:10px;
     cursor: pointer;
     
+}
+.note{
+   overflow-x:scroll; 
+}
+.note-text{
+    display: flex;
+}
+.add-button{
+    color:white;
 }
 

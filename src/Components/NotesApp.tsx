@@ -16,8 +16,10 @@ import { useNavigate } from "react-router-dom";
 import "../styles/style.css";
 import { Input } from "reactstrap";
 import Navbar from "./Navbar";
+import Modale from "./Modale";
 function NotesApp({ darkMode, setDarkMode }) {
   const navigate = useNavigate();
+  
   const [textNote, setTextNote] = useState("");
   const [notes, setNotes] = useState([]);
   const notecollection = collection(db, "notes");
@@ -43,7 +45,7 @@ function NotesApp({ darkMode, setDarkMode }) {
 
   const handleAdd = async () => {
     if (textNote == "") {
-      alert("invalid note");
+      setModalOpen(true)
       return;
     }
     let text = textNote;
@@ -74,16 +76,16 @@ function NotesApp({ darkMode, setDarkMode }) {
             onChange={(e) => setTextNote(e.target.value)}
             type="text"
           />
-          <button onClick={handleAdd}>
+          <button class='add-button' onClick={handleAdd}>
             <AddCircleOutlineIcon />
           </button>
         </div>
       </div>
       <div class="note-app-notes">
-        
+        <Modale modalOpen={modalOpen} setModalOpen={setModalOpen}/>
         {notes.length == 0 && <h3>No notes yet</h3>}
         {notes.map((note) => {
-          return <Note note={note} />;
+          return <Note note={note} setModalOpen={setModalOpen} />;
         })}
       </div>
     </div>
