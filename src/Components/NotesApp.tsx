@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import Note from "./Note";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import db from "../firebase";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -12,16 +12,18 @@ import {
   query,
   where,
 } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 import "../styles/style.css";
 import { Input } from "reactstrap";
-import Navbar from './Navbar'
-function NotesApp() {
+import Navbar from "./Navbar";
+function NotesApp({ darkMode, setDarkMode }) {
+  const navigate = useNavigate();
   const [textNote, setTextNote] = useState("");
   const [notes, setNotes] = useState([]);
   const notecollection = collection(db, "notes");
   const [user, setUser] = useState([]);
+  const [modalOpen,setModalOpen] = useState(false)
   const notes_db = collection(db, "notes");
-
   useEffect(() => {
     onAuthStateChanged(auth, (CurrentUser) => {
       setUser(CurrentUser);
@@ -33,8 +35,10 @@ function NotesApp() {
         notearr.push({ ...doc.data(), id: doc.id });
       });
       setNotes(notearr);
-    });
+    })
+    
     return () => unsubscribe();
+    
   }, [user]);
 
   const handleAdd = async () => {
@@ -50,13 +54,19 @@ function NotesApp() {
       user: auth.currentUser?.email,
     });
   };
+  const handleLogout = async () => {
+    await signOut(auth);
+    navigate("/");
+  };
   return (
     <div class="note-app">
-       <Navbar/>
+      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
       <div class="note-app-header">
-       
         <span>{user?.email}</span>
-        <h1>Welcome to Note App</h1>
+        <button class="sign-out" onClick={handleLogout}>
+          Sign out
+        </button>
+        <h1>Welcome to notes app</h1>
         <div class="input">
           <span> note:</span>
           <Input
@@ -70,6 +80,8 @@ function NotesApp() {
         </div>
       </div>
       <div class="note-app-notes">
+        
+        {notes.length == 0 && <h3>No notes yet</h3>}
         {notes.map((note) => {
           return <Note note={note} />;
         })}
