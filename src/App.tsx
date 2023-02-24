@@ -4,6 +4,7 @@ import { Route, Routes, BrowserRouter } from "react-router-dom";
 import Connexion from "./Components/Connexion";
 import { auth } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
+
 function App() {
   const [user, setUser] = useState("");
   useEffect(() => {
@@ -14,7 +15,8 @@ function App() {
 
   return (
     <div>
-     
+      
+
         <Routes>
           <Route path="/note-App" element={<NotesApp />}></Route>
           <Route

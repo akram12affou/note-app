@@ -4,6 +4,9 @@
     padding:0;
     margin:0;
 }
+body{
+    overflow: hidden;
+}
 .note-app{
     color: rgb(255, 255, 255);
     background: #252525;
@@ -17,11 +20,29 @@
    
     padding-top: 2rem;
 }
-
+.setting-icon{
+    transition: all 0.3s ease;
+ 
+}
+/* .setting-icon:hover{
+       transform: rotate(50deg);
+} */
 .input{
     display: flex;
     align-items: center;
 
+}
+.menu{
+    position: fixed;
+    top:3rem;
+    background: #f05858;
+    width: 30vw;
+    height:25vh;
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+    justify-content: center;
+    
 }
 .note-app-notes{
   display: flex;
@@ -110,3 +131,20 @@ form button:hover{
     background: #363636;
 
 }
+form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:100vw;
+    height: 100vh;
+}
+form div{
+    margin: 10px;
+}
+.navbar{
+    top:1vh;
+    left:10px;
+    cursor: pointer;
+    
+}
+

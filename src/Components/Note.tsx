@@ -8,19 +8,15 @@ function Note({note}) {
   const [editedName,setEditedName] = useState('')
   const [inputsShow , setInputsShow] = useState(true)
   const handleEdit = async(id,notename) => {
-    console.log(editedName)
-    if(editedName==''){
-      alert('invalid todo')
-      return;
-    }
-    if(inputsShow){
-      
+    if(inputsShow){     
       setEditedName(notename)
       setInputsShow(!inputsShow)
-      editedName('')
       return
     }
-    
+    if(editedName == ''){
+      alert('invalid todo')
+      return
+    }
     await updateDoc(doc(db, "notes", id), { notename: editedName });
     setInputsShow(!inputsShow)
     editedName('')

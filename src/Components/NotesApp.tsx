@@ -13,6 +13,8 @@ import {
   where,
 } from "firebase/firestore";
 import "../styles/style.css";
+import { Input } from "reactstrap";
+import Navbar from './Navbar'
 function NotesApp() {
   const [textNote, setTextNote] = useState("");
   const [notes, setNotes] = useState([]);
@@ -50,12 +52,14 @@ function NotesApp() {
   };
   return (
     <div class="note-app">
+       <Navbar/>
       <div class="note-app-header">
+       
         <span>{user?.email}</span>
         <h1>Welcome to Note App</h1>
         <div class="input">
-          <label>Write your note :</label>
-          <input
+          <span> note:</span>
+          <Input
             value={textNote}
             onChange={(e) => setTextNote(e.target.value)}
             type="text"
