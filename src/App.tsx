@@ -4,10 +4,9 @@ import { Route, Routes, BrowserRouter } from "react-router-dom";
 import Connexion from "./Components/Connexion";
 import { auth } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
-
 function App() {
-  const [user, setUser] = useState<any>("");
-  const [darkMode , setDarkMode] = useState<boolean>(JSON.parse(localStorage.getItem("darkMode"))[0].darkMode || false)
+  const [user, setUser] = useState("");
+  
   useEffect(() => {
     onAuthStateChanged(auth, (CurrentUser) => {
       setUser(CurrentUser);
@@ -19,7 +18,7 @@ function App() {
       
 
         <Routes>
-          <Route path="/note-App" element={<NotesApp darkMode={darkMode} setDarkMode={setDarkMode}/>}></Route>
+          <Route path="/note-App" element={<NotesApp/>}></Route>
           <Route
             path="/"
             element={<Connexion user={user} setUser={setUser} />}

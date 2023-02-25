@@ -13,14 +13,10 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-type AppProps = {
-  note: object;
-  setModalOpen:React.Dispatch<React.SetStateAction<any>>;
-}
-function Note({ note,setModalOpen } : AppProps):FC {
+function Note({ note,setModalOpen }) {
   const [editedName, setEditedName] = useState("");
   const [inputsShow, setInputsShow] = useState(true);
-  const handleEdit = async (id : string , notename : string) => {
+  const handleEdit = async (id  , notename ) => {
     if (inputsShow) {
       setEditedName(notename);
       setInputsShow(!inputsShow);
@@ -35,12 +31,11 @@ function Note({ note,setModalOpen } : AppProps):FC {
     setInputsShow(!inputsShow);
     setEditedName('')
   };
-  const handleDelete = async (note : object) => {
+  const handleDelete = async (note ) => {
     await deleteDoc(doc(db, "notes", note.id));
   };
- const handleDone = async(id : string,done : boolean) => {
+ const handleDone = async(id ,done ) => {
   await updateDoc(doc(db, "notes", id), {done : !done});
-
  }
   return (
     <div class="note" key={note.id}>

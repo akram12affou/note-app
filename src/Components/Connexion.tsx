@@ -6,14 +6,13 @@ import {
 } from "firebase/auth";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Input } from "reactstrap";
-
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
-type Props = {
-  setUser?: React.Dispatch<React.SetStateAction<any>>;
-};
-function Connexion({ setUser }: Props):FC {
+// type Props = {
+//   setUser?: React.Dispatch<React.SetStateAction<any>>;
+// };
+function Connexion({ setUser }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");

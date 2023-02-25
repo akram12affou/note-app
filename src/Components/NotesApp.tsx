@@ -7,6 +7,8 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import {
   addDoc,
   collection,
+  deleteDoc,
+  doc,
   getDocs,
   onSnapshot,
   query,
@@ -17,13 +19,9 @@ import "../styles/style.css";
 import { Input } from "reactstrap";
 import Navbar from "./Navbar";
 import Modale from "./Modale";
-type AppProps = {
-  darkMode: boolean;
-  setDarkMode: React.Dispatch<React.SetStateAction<any>>;
-}
-function NotesApp({ darkMode, setDarkMode }: AppProps) : FC {
+import Footer from './Footer'
+function NotesApp() {
   const navigate = useNavigate();
-  
   const [textNote, setTextNote] = useState("");
   const [notes, setNotes] = useState([]);
   const notecollection = collection(db, "notes");
@@ -42,7 +40,6 @@ function NotesApp({ darkMode, setDarkMode }: AppProps) : FC {
       });
       setNotes(notearr);
     })
-    
     return () => unsubscribe();
     
   }, [user]);
@@ -64,9 +61,25 @@ function NotesApp({ darkMode, setDarkMode }: AppProps) : FC {
     await signOut(auth);
     navigate("/");
   };
+  // const deleteAll = async() => {
+  //   console.log(notes)
+  //   await deleteDoc(doc(db, "notes", 'f'));
+  // }
+  const deleteAll = async () => {
+    notes.map(async (e) => 
+      await deleteDoc(doc(db, "notes", e.id))
+    );
+  };
+  const clearDone = async() => {
+    notes.filter((e)=> 
+        e.done == true
+    ).map(async (e) => 
+    await deleteDoc(doc(db, "notes", e.id))
+  );
+  }
   return (
     <div class="note-app">
-      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+      <Navbar />
       <div class="note-app-header">
         <span>{user?.email}</span>
         <button class="sign-out" onClick={handleLogout}>
@@ -91,7 +104,10 @@ function NotesApp({ darkMode, setDarkMode }: AppProps) : FC {
         {notes.map((note) => {
           return <Note note={note} setModalOpen={setModalOpen} />;
         })}
+    
       </div>
+    
+      <Footer clearDone={clearDone} deleteAll={deleteAll} notes={notes}/>
     </div>
   );
 }
