@@ -52,7 +52,6 @@ body{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    
 }
 .menu{
     transition: all 0.3s ease;
@@ -62,8 +61,7 @@ body{
   padding-top: 1rem;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1rem;
-
+  gap: 1rem
 }
 .note{
     display: flex;
@@ -169,7 +167,6 @@ form div{
     top:1vh;
     left:10px;
     cursor: pointer;
-    
 }
 .note{
    overflow-x:scroll; 

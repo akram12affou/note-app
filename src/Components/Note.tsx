@@ -22,7 +22,7 @@ function Note({ note,setModalOpen }) {
       setInputsShow(!inputsShow);
       return;
     }
-    if (editedName == "") {
+    if (editedName.trim() == "") {
       setModalOpen(true)
       console.log('h')
       return;

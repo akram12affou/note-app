@@ -44,7 +44,7 @@ function NotesApp({ darkMode, setDarkMode }) {
   }, [user]);
 
   const handleAdd = async () => {
-    if (textNote == "") {
+    if (textNote.trim() == "") {
       setModalOpen(true)
       return;
     }
