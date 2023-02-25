@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useState ,FC} from "react";
 import Note from "./Note";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../firebase";
@@ -17,7 +17,11 @@ import "../styles/style.css";
 import { Input } from "reactstrap";
 import Navbar from "./Navbar";
 import Modale from "./Modale";
-function NotesApp({ darkMode, setDarkMode }) {
+type AppProps = {
+  darkMode: boolean;
+  setDarkMode: React.Dispatch<React.SetStateAction<any>>;
+}
+function NotesApp({ darkMode, setDarkMode }: AppProps) : FC {
   const navigate = useNavigate();
   
   const [textNote, setTextNote] = useState("");

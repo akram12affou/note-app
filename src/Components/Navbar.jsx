@@ -3,8 +3,8 @@ import "../styles/style.css";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import SettingsIcon from "@mui/icons-material/Settings";
 function Navbar({ darkMode, setDarkMode }) {
-  const [open, setOpen] = useState(false);
-  const [bigLetter, setBigLetter] = useState(JSON.parse(localStorage.getItem("bigLetter"))[0].bigLetter || false);
+  const [open, setOpen] = useState<boolean>(false);
+  const [bigLetter, setBigLetter] = useState<boolean>(JSON.parse(localStorage.getItem("bigLetter"))[0].bigLetter || false);
   useEffect(() => {
     localStorage.setItem("bigLetter", JSON.stringify([{ bigLetter: bigLetter }]));
     localStorage.setItem("darkMode", JSON.stringify([{ darkMode: darkMode }]));

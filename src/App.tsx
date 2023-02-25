@@ -6,8 +6,8 @@ import { auth } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
 function App() {
-  const [user, setUser] = useState("");
-  const [darkMode , setDarkMode] = useState(JSON.parse(localStorage.getItem("darkMode"))[0].darkMode || false)
+  const [user, setUser] = useState<any>("");
+  const [darkMode , setDarkMode] = useState<boolean>(JSON.parse(localStorage.getItem("darkMode"))[0].darkMode || false)
   useEffect(() => {
     onAuthStateChanged(auth, (CurrentUser) => {
       setUser(CurrentUser);

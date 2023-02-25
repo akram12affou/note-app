@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState,FC } from "react";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -10,24 +10,22 @@ import { Input } from "reactstrap";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
-function Connexion({ user, setUser }) {
+type Props = {
+  setUser?: React.Dispatch<React.SetStateAction<any>>;
+};
+function Connexion({ setUser }: Props):FC {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [signIn, setSignIn] = useState(true);
-  // const [error,setError] = useState('')
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [signIn, setSignIn] = useState<boolean>(true);
   const handleAuth = async (e) => {
     e.preventDefault();
     if (signIn) {
       try {
-        console.log(email);
         await createUserWithEmailAndPassword(auth, email, password);
         setEmail("");
         setPassword("");
-
         navigate("Note-App");
-
-        await updateProfile(user).catch((err) => console.log(err));
       } catch (err) {
         alert(err.message);
       }
@@ -35,8 +33,7 @@ function Connexion({ user, setUser }) {
       try {
         await signInWithEmailAndPassword(auth, email, password);
         setEmail("");
-        setPassword("");
-        await updateProfile(user).catch((err) => console.log(err));
+        setPassword("")
       } catch (err) {
         alert(err.message);
       }
@@ -45,13 +42,11 @@ function Connexion({ user, setUser }) {
   };
   const handleLogIn = (e) => {
     e.preventDefault();
-
     setSignIn(!signIn);
   };
   return (
     <form>
       {signIn ? <h1>Register</h1> : <h1>Login</h1>}
-
       {!signIn && (
         <>
           <div>

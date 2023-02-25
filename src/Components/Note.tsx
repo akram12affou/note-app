@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState,FC } from "react";
 import { auth } from "../firebase";
 import db from "../firebase";
 import "../styles/style.css";
@@ -13,10 +13,14 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-function Note({ note,setModalOpen }) {
+type AppProps = {
+  note: object;
+  setModalOpen:React.Dispatch<React.SetStateAction<any>>;
+}
+function Note({ note,setModalOpen } : AppProps):FC {
   const [editedName, setEditedName] = useState("");
   const [inputsShow, setInputsShow] = useState(true);
-  const handleEdit = async (id, notename) => {
+  const handleEdit = async (id : string , notename : string) => {
     if (inputsShow) {
       setEditedName(notename);
       setInputsShow(!inputsShow);
@@ -31,10 +35,10 @@ function Note({ note,setModalOpen }) {
     setInputsShow(!inputsShow);
     setEditedName('')
   };
-  const handleDelete = async (note) => {
+  const handleDelete = async (note : object) => {
     await deleteDoc(doc(db, "notes", note.id));
   };
- const handleDone = async(id,done) => {
+ const handleDone = async(id : string,done : boolean) => {
   await updateDoc(doc(db, "notes", id), {done : !done});
 
  }
